@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="toolbar">
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search part number or name" value="{{ search_text }}">
+        <button type="submit">Search</button>
+        <a href="{{ url_for('index') }}" class="btn-link">Show All</a>
+        <a href="{{ url_for('index', low=1) }}" class="btn-link btn-warning">Low Stock Only</a>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr><th>ID</th><th>Part #</th><th>Name</th><th>Qty</th><th>Reorder</th><th>Location</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        {% for p in parts %}
+        <tr class="{{ 'low-row' if p.is_low_stock() else '' }}">
+            <td>{{ p.id }}</td>
+            <td>{{ p.part_number }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.quantity }}</td>
+            <td>{{ p.reorder_level }}</td>
+            <td>{{ p.location }}</td>
+            <td class="actions">
+                <form method="post" action="{{ url_for('update_quantity', part_id=p.id) }}" class="inline-form">
+                    <input type="number" name="new_quantity" value="{{ p.quantity }}" min="0" required>
+                    <button type="submit" class="btn-small">Update</button>
+                </form>
+                <form method="post" action="{{ url_for('remove_part', part_id=p.id) }}" class="inline-form"
+                      onsubmit="return confirm('Remove this part?');">
+                    <button type="submit" class="btn-small btn-danger">Remove</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">No parts found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Add a Part</h2>
+<form method="post" action="{{ url_for('add_part') }}" class="add-form">
+    <div class="field">
+        <label for="part_number">Part Number</label>
+        <input type="text" id="part_number" name="part_number" placeholder="e.g. A-1234" required>
+    </div>
+    <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="e.g. Hex Bolt" required>
+    </div>
+    <div class="field">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" value="0" min="0">
+    </div>
+    <div class="field">
+        <label for="reorder_level">Reorder Level</label>
+        <input type="number" id="reorder_level" name="reorder_level" value="0" min="0">
+    </div>
+    <div class="field">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="e.g. Shelf A1">
+    </div>
+    <button type="submit" class="btn-primary">Add Part</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+:root {
+    --bg: #1a1b26;
+    --card: #22242f;
+    --card-alt: #2a2d3a;
+    --primary: #8b7cf6;
+    --primary-dark: #6c5ce7;
+    --danger: #ef5666;
+    --warning: #f5a623;
+    --success: #3ddc97;
+    --text: #e6e6f0;
+    --text-dim: #9a9ab3;
+    --border: #363850;
+}
+* { box-sizing: border-box; }
+body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(circle at top left, #2a1f4d, #16151f 60%);
+    margin: 0; padding: 2rem; color: var(--text);
+    min-height: 100vh;
+}
+.container {
+    max-width: 900px; margin: 0 auto; background: var(--card);
+    border-radius: 16px; padding: 2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+}
+h1 { color: var(--text); margin-top: 0; }
+h2 {
+    color: var(--text); font-size: 1.1rem; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--text-dim);
+    margin-top: 2rem; margin-bottom: 1rem;
+}
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid var(--border); }
+th {
+    background: var(--card-alt); color: var(--text-dim);
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em;
+}
+tr:hover { background: rgba(139, 124, 246, 0.06); }
+tr.low-row { background: rgba(245, 166, 35, 0.1); }
+tr.low-row:hover { background: rgba(245, 166, 35, 0.16); }
+
+.toolbar { margin-bottom: 1rem; }
+.search-form input[type="text"] {
+    padding: 0.6rem 0.9rem; border: 1px solid var(--border); border-radius: 10px;
+    width: 240px; background: var(--card-alt); color: var(--text);
+}
+.search-form input[type="text"]::placeholder { color: var(--text-dim); }
+
+button, .btn-link {
+    cursor: pointer; border: none; border-radius: 10px; padding: 0.55rem 1.1rem;
+    font-weight: 600; text-decoration: none; display: inline-block;
+    transition: transform 0.08s ease, opacity 0.15s ease;
+}
+button:hover, .btn-link:hover { opacity: 0.88; }
+button:active, .btn-link:active { transform: scale(0.97); }
+
+button[type="submit"], .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+}
+.btn-link { background: var(--card-alt); color: var(--text); margin-left: 0.4rem; border: 1px solid var(--border); }
+.btn-warning { background: var(--warning); color: #1a1b26; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-small { padding: 0.35rem 0.7rem; font-size: 0.8rem; }
+
+.inline-form { display: inline-flex; gap: 0.3rem; align-items: center; margin-right: 0.3rem; }
+.inline-form input[type="number"] {
+    width: 60px; padding: 0.35rem; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--card-alt); color: var(--text);
+}
+
+/* Modern "Add a Part" card */
+.add-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+}
+.add-form .field { display: flex; flex-direction: column; gap: 0.35rem; }
+.add-form label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--text-dim);
+}
+.add-form input {
+    padding: 0.65rem 0.8rem; border-radius: 10px;
+    border: 1px solid var(--border); background: #1e1f2b; color: var(--text);
+    font-size: 0.95rem;
+}
+.add-form input:focus {
+    outline: none; border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 124, 246, 0.25);
+}
+.add-form .btn-primary {
+    grid-column: 1 / -1; padding: 0.8rem; font-size: 1rem; margin-top: 0.3rem;
+}
+
+.flashes { margin-bottom: 1rem; }
+.flash { padding: 0.65rem 1rem; border-radius: 10px; margin-bottom: 0.5rem; font-weight: 600; }
+.flash-success { background: rgba(61, 220, 151, 0.15); color: var(--success); }
+.flash-error { background: rgba(239, 86, 102, 0.15); color: var(--danger); }
